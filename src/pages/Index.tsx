@@ -30,8 +30,9 @@ const Index = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-gray-900 mb-4 animate-fade-in">
             VentusFortis Solutions
           </h1>
-          <p className="text-lg md:text-xl font-lato text-gray-700 max-w-3xl mx-auto leading-relaxed animate-fade-in">Your Trusted Partner in Real Estate Wholesaling,
-Investing & Joint Ventures</p>
+          <p className="text-lg md:text-xl font-lato text-gray-700 max-w-3xl mx-auto leading-relaxed animate-fade-in">
+            Your Trusted Partner in Real Estate Wholesaling, Investing & Joint Ventures
+          </p>
         </div>
       </div>
 
