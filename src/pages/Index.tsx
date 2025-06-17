@@ -55,7 +55,7 @@ const Index = () => {
       {/* Footer Section */}
       <div className="py-8 px-4 border-t border-gray-200">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-600 font-lato">© 2025 VentusFortis Solutions. Connecting opportunities in real estate.</p>
+          <p className="text-gray-600 font-lato">© 2025 VentusFortis Solutions LLC. Connecting opportunities in real estate.</p>
         </div>
       </div>
     </div>;
