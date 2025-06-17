@@ -47,7 +47,7 @@ const CTACard: React.FC<CTACardProps> = ({
         onClick={onButtonClick}
         className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 ${getButtonClasses()}`}
       >
-        Submit Details
+        {buttonText}
       </Button>
     </div>
   );
