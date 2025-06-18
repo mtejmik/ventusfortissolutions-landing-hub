@@ -86,7 +86,10 @@ const Index = () => {
             <h3 className="text-lg font-semibold font-montserrat text-gray-800 mb-2">Contact Us</h3>
             <address className="text-gray-600 font-lato not-italic">
               30 N Gould St Ste R<br />
-              Sheridan, WY 82801
+              Sheridan, WY 82801<br />
+              <a href="mailto:info@ventusfortissolutions.com" className="text-blue-600 hover:text-blue-800 transition-colors">
+                info@ventusfortissolutions.com
+              </a>
             </address>
           </div>
           <p className="text-gray-600 font-lato">
