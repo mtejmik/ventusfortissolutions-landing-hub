@@ -8,6 +8,7 @@ interface CTACardProps {
   buttonText: string;
   buttonStyle: 'primary' | 'secondary' | 'outline';
   backgroundColor: string;
+  titleColor?: string;
   onButtonClick: () => void;
 }
 
@@ -17,6 +18,7 @@ const CTACard: React.FC<CTACardProps> = ({
   buttonText,
   buttonStyle,
   backgroundColor,
+  titleColor = 'text-gray-800',
   onButtonClick
 }) => {
   const getButtonClasses = () => {
@@ -37,7 +39,7 @@ const CTACard: React.FC<CTACardProps> = ({
       className="p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105 animate-fade-in"
       style={{ backgroundColor }}
     >
-      <h3 className="text-xl font-semibold font-lato text-gray-800 mb-4">
+      <h3 className={`text-xl font-semibold font-lato mb-4 ${titleColor}`}>
         {title}
       </h3>
       <p className="text-gray-600 font-lato mb-6 leading-relaxed">

@@ -63,6 +63,7 @@ const Index = () => {
               buttonText="Submit Deal"
               buttonStyle="secondary"
               backgroundColor="#FFEEDB"
+              titleColor="text-orange-warm"
               onButtonClick={handleSubmitDeal}
             />
 
