@@ -59,7 +59,7 @@ const Index = () => {
             {/* Wholesaler Card */}
             <CTACard
               title="Wholesaler?"
-              description="Have a deal? Partner with us and let's JV on your next contract!"
+              description="Have a deal to push? Let´s find you a buyer and JV on your contract!"
               buttonText="Submit Deal"
               buttonStyle="secondary"
               backgroundColor="#FFEEDB"
