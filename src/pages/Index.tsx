@@ -49,7 +49,7 @@ const Index = () => {
             {/* Seller/Realtor Card */}
             <CTACard
               title="Seller or Realtor?"
-              description="Looking to sell fast? Submit your property and get an offer today!"
+              description="Looking to sell? Submit your property and get an offer today!"
               buttonText="Get Offer"
               buttonStyle="primary"
               backgroundColor="#D6ECFF"
