@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import { Upload, X, FileImage, FileVideo, FileText } from 'lucide-react';
 
 const SellerForm = () => {
   const [formData, setFormData] = useState({
@@ -15,8 +18,11 @@ const SellerForm = () => {
     propertyType: '',
     askingPrice: '',
     timeframe: '',
+    financingOptions: [] as string[],
     additionalInfo: ''
   });
+
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -25,12 +31,63 @@ const SellerForm = () => {
     });
   };
 
+  const handleFinancingChange = (option: string) => {
+    setFormData(prev => ({
+      ...prev,
+      financingOptions: prev.financingOptions.includes(option)
+        ? prev.financingOptions.filter(o => o !== option)
+        : [...prev.financingOptions, option]
+    }));
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    const validFiles = selectedFiles.filter(file => {
+      const isValidType = file.type.startsWith('image/') || 
+                         file.type.startsWith('video/') || 
+                         file.type === 'application/pdf' ||
+                         file.type.includes('document') ||
+                         file.type.includes('text');
+      const isValidSize = file.size <= 50 * 1024 * 1024; // 50MB limit
+      
+      if (!isValidType) {
+        toast({
+          title: "Invalid file type",
+          description: `${file.name} is not a supported file type.`,
+          variant: "destructive"
+        });
+      }
+      if (!isValidSize) {
+        toast({
+          title: "File too large",
+          description: `${file.name} is larger than 50MB.`,
+          variant: "destructive"
+        });
+      }
+      
+      return isValidType && isValidSize;
+    });
+
+    setFiles(prev => [...prev, ...validFiles]);
+    e.target.value = '';
+  };
+
+  const removeFile = (index: number) => {
+    setFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const getFileIcon = (file: File) => {
+    if (file.type.startsWith('image/')) return <FileImage className="w-4 h-4" />;
+    if (file.type.startsWith('video/')) return <FileVideo className="w-4 h-4" />;
+    return <FileText className="w-4 h-4" />;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Seller form submitted:', formData);
+    console.log('Seller form submitted:', { ...formData, files });
     toast({
       title: "Form Submitted Successfully",
-      description: "We'll contact you within 24 hours with your cash offer!"
+      description: "We'll contact you within 24 hours with your offer options!"
     });
   };
 
@@ -40,10 +97,10 @@ const SellerForm = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold font-montserrat text-blue-dark mb-4">
-            Get Your Cash Offer Today
+            Get Your Property Offer Today
           </h1>
           <p className="text-xl font-lato text-gray-700 max-w-2xl mx-auto">
-            Sell your property fast with no repairs, no fees, and no hassles. Get a fair cash offer in 24 hours.
+            Multiple offer options available: Cash offers, creative financing, and subject-to mortgage takeovers. Get your personalized offer in 24 hours.
           </p>
         </div>
 
@@ -166,15 +223,101 @@ const SellerForm = () => {
               </select>
             </div>
 
+            {/* Financing Options */}
+            <div>
+              <Label className="text-blue-dark font-semibold mb-4 block">Financing Options You're Interested In *</Label>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="cash"
+                    checked={formData.financingOptions.includes('cash')}
+                    onChange={() => handleFinancingChange('cash')}
+                    className="rounded border-2 border-gray-200"
+                  />
+                  <Label htmlFor="cash" className="text-gray-700">Cash Offer</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="creative-finance"
+                    checked={formData.financingOptions.includes('creative-finance')}
+                    onChange={() => handleFinancingChange('creative-finance')}
+                    className="rounded border-2 border-gray-200"
+                  />
+                  <Label htmlFor="creative-finance" className="text-gray-700">Creative Financing (Owner Financing, Lease Options, etc.)</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="subject-to"
+                    checked={formData.financingOptions.includes('subject-to')}
+                    onChange={() => handleFinancingChange('subject-to')}
+                    className="rounded border-2 border-gray-200"
+                  />
+                  <Label htmlFor="subject-to" className="text-gray-700">Subject-To Mortgage Takeover</Label>
+                </div>
+              </div>
+            </div>
+
+            {/* File Upload Section */}
+            <div>
+              <Label className="text-blue-dark font-semibold mb-4 block">Property Photos, Documents & Videos</Label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <div className="mb-4">
+                  <p className="text-gray-600 mb-2">Upload photos, documents, or videos</p>
+                  <p className="text-sm text-gray-500">Supported formats: JPG, PNG, PDF, MP4, MOV, DOC (Max 50MB each)</p>
+                </div>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  id="file-upload"
+                />
+                <Button type="button" variant="outline" onClick={() => document.getElementById('file-upload')?.click()}>
+                  Choose Files
+                </Button>
+              </div>
+
+              {files.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  <p className="text-sm font-medium text-gray-700">Uploaded Files:</p>
+                  {files.map((file, index) => (
+                    <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        {getFileIcon(file)}
+                        <div>
+                          <p className="text-sm font-medium text-gray-700">{file.name}</p>
+                          <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFile(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <div>
               <Label htmlFor="additionalInfo" className="text-blue-dark font-semibold">Additional Information</Label>
-              <textarea
+              <Textarea
                 id="additionalInfo"
                 name="additionalInfo"
                 value={formData.additionalInfo}
                 onChange={handleInputChange}
                 rows={4}
-                className="mt-2 w-full px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
+                className="mt-2 border-2 border-gray-200 focus:border-blue-dark"
                 placeholder="Tell us about your property condition, situation, or any questions..."
               />
             </div>
@@ -183,13 +326,14 @@ const SellerForm = () => {
               type="submit"
               className="w-full bg-blue-dark hover:bg-blue-dark/90 text-white py-4 text-lg font-semibold rounded-lg"
             >
-              Get My Cash Offer Now
+              Get My Offer Options Now
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-600">
             <p>🔒 Your information is secure and confidential</p>
             <p>📞 We'll contact you within 24 hours</p>
+            <p>💰 Multiple financing options available</p>
           </div>
         </div>
       </div>
