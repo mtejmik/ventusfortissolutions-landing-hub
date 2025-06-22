@@ -1,29 +1,37 @@
 import React from 'react';
 import CTACard from '@/components/CTACard';
 import { toast } from '@/hooks/use-toast';
+
 const Index = () => {
   const handleGetOffer = () => {
+    window.open('/seller-form', '_blank');
     toast({
       title: "Get Offer",
-      description: "Redirecting to property submission form..."
+      description: "Opening property submission form in new tab..."
     });
     console.log("Get Offer clicked");
   };
+
   const handleSubmitDeal = () => {
+    window.open('/wholesaler-form', '_blank');
     toast({
       title: "Submit Deal",
-      description: "Opening joint venture partnership form..."
+      description: "Opening joint venture partnership form in new tab..."
     });
     console.log("Submit Deal clicked");
   };
+
   const handleSubmitBuybox = () => {
+    window.open('/buyer-form', '_blank');
     toast({
       title: "Submit Buybox",
-      description: "Taking you to buyer criteria form..."
+      description: "Opening buyer criteria form in new tab..."
     });
     console.log("Submit Buybox clicked");
   };
-  return <div className="min-h-screen bg-sky-soft">
+
+  return (
+    <div className="min-h-screen bg-sky-soft">
       {/* Header Section */}
       <div className="pt-16 pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -69,6 +77,8 @@ Investing & Joint Ventures</p>
           </p>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
