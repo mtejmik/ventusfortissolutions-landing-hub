@@ -1,12 +1,15 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from '@/hooks/use-toast';
-import { Upload, X, FileImage, FileVideo, FileText } from 'lucide-react';
+import { Upload, X, FileImage, FileVideo, FileText, CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const SellerForm = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +20,7 @@ const SellerForm = () => {
     propertyAddress: '',
     propertyType: '',
     askingPrice: '',
-    timeframe: '',
+    timeframe: null as Date | null,
     financingOptions: [] as string[],
     additionalInfo: ''
   });
@@ -205,22 +208,35 @@ const SellerForm = () => {
             </div>
 
             <div>
-              <Label htmlFor="timeframe" className="text-blue-dark font-semibold">Timeframe to Sell *</Label>
-              <select
-                id="timeframe"
-                name="timeframe"
-                value={formData.timeframe}
-                onChange={handleInputChange}
-                required
-                className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
-              >
-                <option value="">Select Timeframe</option>
-                <option value="asap">ASAP</option>
-                <option value="1-month">Within 1 Month</option>
-                <option value="3-months">1-3 Months</option>
-                <option value="6-months">3-6 Months</option>
-                <option value="flexible">Flexible</option>
-              </select>
+              <Label className="text-blue-dark font-semibold">Preferred Sale Date *</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full mt-2 justify-start text-left font-normal border-2 border-gray-200 focus:border-blue-dark h-10",
+                      !formData.timeframe && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {formData.timeframe ? (
+                      format(formData.timeframe, "PPP")
+                    ) : (
+                      <span>Pick your preferred sale date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={formData.timeframe || undefined}
+                    onSelect={(date) => setFormData(prev => ({ ...prev, timeframe: date || null }))}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             {/* Financing Options */}
