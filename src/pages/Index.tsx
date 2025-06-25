@@ -1,3 +1,4 @@
+
 import React from 'react';
 import CTACard from '@/components/CTACard';
 import { toast } from '@/hooks/use-toast';
@@ -51,7 +52,7 @@ Investing & Joint Ventures</p>
             <CTACard title="Seller or Realtor?" description="Looking to sell? Submit your property and get an offer today!" buttonText="Get Offer" buttonStyle="primary" backgroundColor="#D6ECFF" onButtonClick={handleGetOffer} />
 
             {/* Wholesaler Card */}
-            <CTACard title="Wholesaler?" description="Have a deal to push? Let´s find you a buyer and JV on your contract!" buttonText="Submit Deal" buttonStyle="secondary" backgroundColor="#FFEEDB" titleColor="text-orange-warm" onButtonClick={handleSubmitDeal} />
+            <CTACard title="Wholesaler?" description="Have a deal to push? Let´s JV and find you a buyer!" buttonText="Submit Deal" buttonStyle="secondary" backgroundColor="#FFEEDB" titleColor="text-orange-warm" onButtonClick={handleSubmitDeal} />
 
             {/* Buyer/Investor Card */}
             <CTACard title="Buyer or Investor?" description="Tell us your buybox — we'll find the right deals for you!" buttonText="Submit Buybox" buttonStyle="outline" backgroundColor="#FFFFFF" onButtonClick={handleSubmitBuybox} />
