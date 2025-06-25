@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 import ContactInfoSection from '@/components/wholesaler/ContactInfoSection';
 import PropertyInfoSection from '@/components/wholesaler/PropertyInfoSection';
 import DatePickerField from '@/components/wholesaler/DatePickerField';
+import PropertyDetailsSection from '@/components/wholesaler/PropertyDetailsSection';
 import FileUploadSection from '@/components/wholesaler/FileUploadSection';
+import FormHeader from '@/components/wholesaler/FormHeader';
+import FormFooter from '@/components/wholesaler/FormFooter';
 
 const WholesalerForm = () => {
   const [formData, setFormData] = useState({
@@ -47,17 +49,8 @@ const WholesalerForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-beige-soft to-orange-warm/20">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold font-montserrat text-orange-warm mb-4">
-            Submit Your Deal
-          </h1>
-          <p className="text-xl font-lato text-gray-700 max-w-2xl mx-auto">
-            Partner with us to move your wholesale deals fast. We have cash buyers ready to close.
-          </p>
-        </div>
+        <FormHeader />
 
-        {/* Form Card */}
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <ContactInfoSection 
@@ -78,23 +71,15 @@ const WholesalerForm = () => {
               placeholder="Pick a deadline date"
             />
 
-            <div>
-              <Label htmlFor="propertyDetails" className="text-orange-warm font-semibold">Property Details & Deal Info</Label>
-              <textarea
-                id="propertyDetails"
-                name="propertyDetails"
-                value={formData.propertyDetails}
-                onChange={handleInputChange}
-                rows={4}
-                className="mt-2 w-full px-3 py-2 border-2 border-gray-200 rounded-md focus:border-orange-warm focus:outline-none"
-                placeholder="Property condition, comps, neighborhood info, special terms..."
-              />
-              
-              <FileUploadSection 
-                attachedFiles={attachedFiles}
-                onFilesChange={setAttachedFiles}
-              />
-            </div>
+            <PropertyDetailsSection
+              value={formData.propertyDetails}
+              onChange={handleInputChange}
+            />
+
+            <FileUploadSection 
+              attachedFiles={attachedFiles}
+              onFilesChange={setAttachedFiles}
+            />
 
             <Button
               type="submit"
@@ -104,10 +89,7 @@ const WholesalerForm = () => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>🤝 Joint venture partnerships available</p>
-            <p>⚡ Fast response within 24 hours</p>
-          </div>
+          <FormFooter />
         </div>
       </div>
     </div>
