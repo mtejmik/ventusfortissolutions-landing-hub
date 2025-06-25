@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,7 +22,11 @@ const SellerForm = () => {
     propertyType: '',
     askingPrice: '',
     timeframe: '',
-    financingOptions: [] as string[],
+    offerTypes: [] as string[],
+    hasMortgage: '',
+    mortgageAmount: '',
+    interestRate: '',
+    propertyVacancy: '',
     additionalInfo: ''
   });
 
@@ -34,12 +39,12 @@ const SellerForm = () => {
     });
   };
 
-  const handleFinancingChange = (option: string) => {
+  const handleOfferTypeChange = (option: string) => {
     setFormData(prev => ({
       ...prev,
-      financingOptions: prev.financingOptions.includes(option)
-        ? prev.financingOptions.filter(o => o !== option)
-        : [...prev.financingOptions, option]
+      offerTypes: prev.offerTypes.includes(option)
+        ? prev.offerTypes.filter(o => o !== option)
+        : [...prev.offerTypes, option]
     }));
   };
 
@@ -226,16 +231,16 @@ const SellerForm = () => {
               </select>
             </div>
 
-            {/* Financing Options */}
+            {/* Type of Offers */}
             <div>
-              <Label className="text-blue-dark font-semibold mb-4 block">Financing Options You're Interested In *</Label>
+              <Label className="text-blue-dark font-semibold mb-4 block">Type of Offers You're Interested In *</Label>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     id="cash"
-                    checked={formData.financingOptions.includes('cash')}
-                    onChange={() => handleFinancingChange('cash')}
+                    checked={formData.offerTypes.includes('cash')}
+                    onChange={() => handleOfferTypeChange('cash')}
                     className="rounded border-2 border-gray-200"
                   />
                   <Label htmlFor="cash" className="text-gray-700">Cash Offer</Label>
@@ -244,8 +249,8 @@ const SellerForm = () => {
                   <input
                     type="checkbox"
                     id="creative-finance"
-                    checked={formData.financingOptions.includes('creative-finance')}
-                    onChange={() => handleFinancingChange('creative-finance')}
+                    checked={formData.offerTypes.includes('creative-finance')}
+                    onChange={() => handleOfferTypeChange('creative-finance')}
                     className="rounded border-2 border-gray-200"
                   />
                   <Label htmlFor="creative-finance" className="text-gray-700">Creative Financing (Owner Financing, Lease Options, etc.)</Label>
@@ -254,13 +259,77 @@ const SellerForm = () => {
                   <input
                     type="checkbox"
                     id="subject-to"
-                    checked={formData.financingOptions.includes('subject-to')}
-                    onChange={() => handleFinancingChange('subject-to')}
+                    checked={formData.offerTypes.includes('subject-to')}
+                    onChange={() => handleOfferTypeChange('subject-to')}
                     className="rounded border-2 border-gray-200"
                   />
                   <Label htmlFor="subject-to" className="text-gray-700">Subject-To Mortgage Takeover</Label>
                 </div>
               </div>
+            </div>
+
+            {/* Mortgage Information */}
+            <div>
+              <Label htmlFor="hasMortgage" className="text-blue-dark font-semibold">Is there a mortgage on the property? *</Label>
+              <select
+                id="hasMortgage"
+                name="hasMortgage"
+                value={formData.hasMortgage}
+                onChange={handleInputChange}
+                required
+                className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
+              >
+                <option value="">Select Option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+
+            {formData.hasMortgage === 'yes' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="mortgageAmount" className="text-blue-dark font-semibold">How much mortgage is left? *</Label>
+                  <Input
+                    id="mortgageAmount"
+                    name="mortgageAmount"
+                    value={formData.mortgageAmount}
+                    onChange={handleInputChange}
+                    required
+                    className="mt-2 border-2 border-gray-200 focus:border-blue-dark"
+                    placeholder="$0"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="interestRate" className="text-blue-dark font-semibold">What's the interest rate? *</Label>
+                  <Input
+                    id="interestRate"
+                    name="interestRate"
+                    value={formData.interestRate}
+                    onChange={handleInputChange}
+                    required
+                    className="mt-2 border-2 border-gray-200 focus:border-blue-dark"
+                    placeholder="0.00%"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Property Vacancy */}
+            <div>
+              <Label htmlFor="propertyVacancy" className="text-blue-dark font-semibold">Is the property vacant? *</Label>
+              <select
+                id="propertyVacancy"
+                name="propertyVacancy"
+                value={formData.propertyVacancy}
+                onChange={handleInputChange}
+                required
+                className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
+              >
+                <option value="">Select Option</option>
+                <option value="yes">Yes</option>
+                <option value="occupied">Occupied</option>
+                <option value="vacant-at-closing">Vacant at Closing</option>
+              </select>
             </div>
 
             {/* File Upload Section */}
