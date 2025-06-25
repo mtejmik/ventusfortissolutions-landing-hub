@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from '@/hooks/use-toast';
-import { Paperclip, FileImage, FileVideo, File } from 'lucide-react';
+import { Paperclip, FileImage, FileVideo, File, CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const WholesalerForm = () => {
   const [formData, setFormData] = useState({
@@ -17,10 +21,10 @@ const WholesalerForm = () => {
     arv: '',
     rehab: '',
     wholesaleFee: '',
-    timeframe: '',
     propertyDetails: ''
   });
 
+  const [contractDeadline, setContractDeadline] = useState<Date>();
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -89,6 +93,7 @@ const WholesalerForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Wholesaler form submitted:', formData);
+    console.log('Contract deadline:', contractDeadline);
     console.log('Attached files:', attachedFiles);
     toast({
       title: "Deal Submitted Successfully",
@@ -243,21 +248,31 @@ const WholesalerForm = () => {
             </div>
 
             <div>
-              <Label htmlFor="timeframe" className="text-orange-warm font-semibold">Contract Deadline *</Label>
-              <select
-                id="timeframe"
-                name="timeframe"
-                value={formData.timeframe}
-                onChange={handleInputChange}
-                required
-                className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-orange-warm focus:outline-none"
-              >
-                <option value="">Select Timeframe</option>
-                <option value="3-days">3 Days</option>
-                <option value="1-week">1 Week</option>
-                <option value="2-weeks">2 Weeks</option>
-                <option value="1-month">1 Month</option>
-              </select>
+              <Label htmlFor="contractDeadline" className="text-orange-warm font-semibold">Contract Deadline *</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "mt-2 w-full justify-start text-left font-normal border-2 border-gray-200 focus:border-orange-warm",
+                      !contractDeadline && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {contractDeadline ? format(contractDeadline, "PPP") : <span>Pick a deadline date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={contractDeadline}
+                    onSelect={setContractDeadline}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div>
