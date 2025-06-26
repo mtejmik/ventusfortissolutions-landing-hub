@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -128,10 +127,9 @@ const BuyerForm = () => {
                   required
                   className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
                 >
-                  <option value="">Select Type</option>
                   <option value="fix-flip">Fix & Flip</option>
                   <option value="buy-hold">Buy & Hold</option>
-                  <option value="wholesale">Wholesale</option>
+                  <option value="section-8">Section 8</option>
                   <option value="owner-occupy">Owner Occupy</option>
                   <option value="commercial">Commercial</option>
                 </select>
@@ -220,12 +218,12 @@ const BuyerForm = () => {
                   required
                   className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
                 >
-                  <option value="">Select Funding</option>
                   <option value="cash">Cash</option>
                   <option value="hard-money">Hard Money</option>
                   <option value="private-lender">Private Lender</option>
                   <option value="conventional">Conventional Loan</option>
                   <option value="partnership">Partnership/JV</option>
+                  <option value="dsrc-loan">DSRC Loan</option>
                 </select>
               </div>
             </div>
