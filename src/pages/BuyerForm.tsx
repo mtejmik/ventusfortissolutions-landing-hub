@@ -186,7 +186,6 @@ const BuyerForm = () => {
                 required
                 className="mt-2 w-full h-10 px-3 py-2 border-2 border-gray-200 rounded-md focus:border-blue-dark focus:outline-none"
               >
-                <option value="">Select Property Types</option>
                 <option value="single-family">Single Family Only</option>
                 <option value="multi-family">Multi-Family Only</option>
                 <option value="both-residential">Both SF & MF</option>

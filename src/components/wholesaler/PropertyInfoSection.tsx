@@ -44,13 +44,12 @@ const PropertyInfoSection = ({ formData, onChange }: PropertyInfoSectionProps) =
           />
         </div>
         <div>
-          <Label htmlFor="arv" className="text-orange-warm font-semibold">ARV (After Repair Value) *</Label>
+          <Label htmlFor="arv" className="text-orange-warm font-semibold">ARV (After Repair Value)</Label>
           <Input
             id="arv"
             name="arv"
             value={formData.arv}
             onChange={onChange}
-            required
             className="mt-2 border-2 border-gray-200 focus:border-orange-warm"
             placeholder="$0"
           />
@@ -59,13 +58,12 @@ const PropertyInfoSection = ({ formData, onChange }: PropertyInfoSectionProps) =
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <Label htmlFor="rehab" className="text-orange-warm font-semibold">Estimated Rehab *</Label>
+          <Label htmlFor="rehab" className="text-orange-warm font-semibold">Estimated Rehab</Label>
           <Input
             id="rehab"
             name="rehab"
             value={formData.rehab}
             onChange={onChange}
-            required
             className="mt-2 border-2 border-gray-200 focus:border-orange-warm"
             placeholder="$0"
           />
