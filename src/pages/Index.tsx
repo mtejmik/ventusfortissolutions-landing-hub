@@ -1,6 +1,8 @@
+
 import React from 'react';
 import CTACard from '@/components/CTACard';
 import { toast } from '@/hooks/use-toast';
+
 const Index = () => {
   const handleGetOffer = () => {
     window.open('/seller-form', '_blank');
@@ -10,6 +12,7 @@ const Index = () => {
     });
     console.log("Get Offer clicked");
   };
+
   const handleSubmitDeal = () => {
     window.open('/wholesaler-form', '_blank');
     toast({
@@ -18,6 +21,7 @@ const Index = () => {
     });
     console.log("Submit Deal clicked");
   };
+
   const handleSubmitBuybox = () => {
     window.open('/buyer-form', '_blank');
     toast({
@@ -26,15 +30,19 @@ const Index = () => {
     });
     console.log("Submit Buybox clicked");
   };
-  return <div className="min-h-screen bg-sky-soft">
+
+  return (
+    <div className="min-h-screen bg-sky-soft">
       {/* Header Section */}
       <div className="pt-16 pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-gray-900 mb-4 animate-fade-in">
             VentusFortis Solutions
           </h1>
-          <p className="text-lg md:text-xl font-lato text-gray-700 max-w-3xl mx-auto leading-relaxed animate-fade-in">Your Trusted Partner in Real Estate Wholesaling,
-Investing & Joint Ventures</p>
+          <p className="text-lg md:text-xl font-lato text-gray-700 max-w-3xl mx-auto leading-relaxed animate-fade-in">
+            Your Trusted Partner in Real Estate Wholesaling,<br />
+            Investing & Joint Ventures
+          </p>
         </div>
       </div>
 
@@ -43,13 +51,35 @@ Investing & Joint Ventures</p>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Seller/Realtor Card */}
-            <CTACard title="Seller or Realtor?" description="Looking to sell? Submit your property and get an offer today!" buttonText="Get Offer" buttonStyle="primary" backgroundColor="#D6ECFF" onButtonClick={handleGetOffer} />
+            <CTACard 
+              title="Seller or Realtor?" 
+              description="Looking to sell? Submit your property and get an offer today!" 
+              buttonText="Get Offer" 
+              buttonStyle="primary" 
+              backgroundColor="#D6ECFF" 
+              onButtonClick={handleGetOffer} 
+            />
 
             {/* Wholesaler Card */}
-            <CTACard title="Wholesaler?" description="Have a deal to push? Let´s JV and find you a buyer!" buttonText="Submit Deal" buttonStyle="secondary" backgroundColor="#FFEEDB" titleColor="text-orange-warm" onButtonClick={handleSubmitDeal} />
+            <CTACard 
+              title="Wholesaler?" 
+              description="Have a deal to push? Let´s JV and find you a buyer!" 
+              buttonText="Submit Deal" 
+              buttonStyle="secondary" 
+              backgroundColor="#FFEEDB" 
+              titleColor="text-orange-warm" 
+              onButtonClick={handleSubmitDeal} 
+            />
 
             {/* Buyer/Investor Card */}
-            <CTACard title="Buyer or Investor?" description="Tell us your buybox — we'll find the right deals for you!" buttonText="Submit Buybox" buttonStyle="outline" backgroundColor="#FFFFFF" onButtonClick={handleSubmitBuybox} />
+            <CTACard 
+              title="Buyer or Investor?" 
+              description="Tell us your buybox — we'll find the right deals for you!" 
+              buttonText="Submit Buybox" 
+              buttonStyle="outline" 
+              backgroundColor="#FFFFFF" 
+              onButtonClick={handleSubmitBuybox} 
+            />
           </div>
         </div>
       </div>
@@ -67,11 +97,42 @@ Investing & Joint Ventures</p>
               </a>
             </address>
           </div>
+          
+          {/* Policy Links */}
+          <div className="mb-4 flex flex-wrap justify-center gap-6">
+            <a 
+              href="/privacy-policy" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 transition-colors font-lato"
+            >
+              Privacy Policy
+            </a>
+            <a 
+              href="/terms-of-use" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 transition-colors font-lato"
+            >
+              Terms of Use
+            </a>
+            <a 
+              href="/cookies-policy" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 transition-colors font-lato"
+            >
+              Cookies Policy
+            </a>
+          </div>
+          
           <p className="text-gray-600 font-lato">
             © 2025 VentusFortis Solutions LLC. Connecting opportunities in real estate.
           </p>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
