@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -72,6 +71,7 @@ const FileUploadSection = ({ attachedFiles, onFilesChange }: FileUploadSectionPr
       <div className="flex items-center gap-2 mb-3">
         <Paperclip className="w-4 h-4 text-orange-warm" />
         <Label className="text-orange-warm font-medium">Attach Photos, Documents & Videos</Label>
+        <span className="text-xs text-gray-500 ml-2">(You don´t have to upload contract if you´re not comfortable with that, we will contact you)</span>
       </div>
       
       <input
